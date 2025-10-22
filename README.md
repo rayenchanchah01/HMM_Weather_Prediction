@@ -16,8 +16,8 @@ We model weather prediction as an HMM where:
 │   ├── hmm_implementation.py    # Complete HMM implementation
 │   ├── weather_hmm_analysis.ipynb # Main analysis notebook
 │   └── test_hmm.py             # Test script
-├── data/                   # Data files and generation scripts
-│   └── generate_data.py        # Data generation script
+├── data/                   # Data files
+│   └── seattle-weather.csv     # Seattle weather dataset
 ├── reports/                # Project report and documentation
 │   └── project_report.md      # Comprehensive project report
 ├── slides/                 # Presentation slides
@@ -66,11 +66,8 @@ Run the comprehensive Jupyter notebook:
 jupyter notebook code/weather_hmm_analysis.ipynb
 ```
 
-### Generate Data
-Generate synthetic weather data:
-```bash
-python data/generate_data.py
-```
+### Data
+This project now uses only the provided Seattle weather dataset in `data/seattle-weather.csv`.
 
 ## Results Summary
 

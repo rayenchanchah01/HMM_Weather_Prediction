@@ -353,75 +353,8 @@ class HiddenMarkovModel:
         
         plt.tight_layout()
         plt.show()
-
-
-def generate_weather_data(n_days: int = 100, seed: int = 42) -> Tuple[np.ndarray, np.ndarray]:
-    """
-    Generate synthetic weather data for training and testing.
-    
-    Args:
-        n_days: Number of days to generate
-        seed: Random seed for reproducibility
-        
-    Returns:
-        Tuple of (true_states, observations)
-    """
-    np.random.seed(seed)
-    
-    # True weather transition matrix (more realistic)
-    true_A = np.array([
-        [0.7, 0.2, 0.1],  # Sunny -> [Sunny, Cloudy, Rainy]
-        [0.3, 0.4, 0.3],  # Cloudy -> [Sunny, Cloudy, Rainy]
-        [0.2, 0.3, 0.5]   # Rainy -> [Sunny, Cloudy, Rainy]
-    ])
-    
-    # True emission parameters
-    true_mu = np.array([
-        [25.0, 40.0, 0.1],  # Sunny: high temp, low humidity, few umbrellas
-        [20.0, 70.0, 0.3],  # Cloudy: medium temp, high humidity, some umbrellas
-        [15.0, 85.0, 0.8]   # Rainy: low temp, high humidity, many umbrellas
-    ])
-    
-    true_sigma = np.array([
-        [[4.0, 0.0, 0.0], [0.0, 5.0, 0.0], [0.0, 0.0, 0.1]],
-        [[3.0, 0.0, 0.0], [0.0, 8.0, 0.0], [0.0, 0.0, 0.15]],
-        [[2.0, 0.0, 0.0], [0.0, 6.0, 0.0], [0.0, 0.0, 0.2]]
-    ])
-    
-    # Generate state sequence
-    states = [0]  # Start sunny
-    for _ in range(n_days - 1):
-        next_state = np.random.choice(3, p=true_A[states[-1]])
-        states.append(next_state)
-    
-    # Generate observations
-    observations = []
-    for state in states:
-        obs = np.random.multivariate_normal(true_mu[state], true_sigma[state])
-        observations.append(obs)
-    
-    return np.array(states), np.array(observations)
-
-
 if __name__ == "__main__":
-    # Example usage
-    print("Generating weather data...")
-    true_states, observations = generate_weather_data(n_days=200)
-    
-    print("Training HMM...")
-    hmm = HiddenMarkovModel()
-    log_likelihoods = hmm.baum_welch(observations, max_iterations=50)
-    
-    print("Running inference...")
-    viterbi_states, viterbi_log_prob = hmm.viterbi_algorithm(observations)
-    
-    print("Forecasting...")
-    pred_states, pred_obs = hmm.forecast(observations, steps=5)
-    
-    print(f"Final log-likelihood: {log_likelihoods[-1]:.2f}")
-    print(f"Viterbi log-probability: {viterbi_log_prob:.2f}")
-    print(f"Predicted next states: {pred_states}")
-    
-    # Plot results
-    hmm.plot_transition_matrix()
-    hmm.plot_emission_parameters()
+    # This module provides the HMM implementation only.
+    # Please use scripts in the `code/` folder (e.g., `final_comparison.py`)
+    # or the notebook `code/weather_hmm_analysis.ipynb` to train using
+    # the dataset in `data/seattle-weather.csv`.
